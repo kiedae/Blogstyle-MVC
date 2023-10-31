@@ -1,12 +1,20 @@
 const router = require('express').Router();
 const express = require('express');
-const path = require('path');
-
-const loginPage = require('../views/login.handlebars');
-
-router.get('', (req, res) => {
-    const mainPath = path.join(__dirname, '..', 'views', 'layouts', 'main.handlebars');
-    res.sendFile(mainPath);
+const { Post, User, Comment} = require('../models')
+const withAuth = require('../utils/authentication');
+router.get('/', async (req, res) => {
+    try {
+const posts = await Post.findAll({
+        include: [{ mdoel: User, attributes: ['username'] }],
+        
+        });
+        res.render("homepage", {
+            posts,
+            logged_in: req.session.logged_in,
+}); 
+} catch (err) {
+    res.status(500).json({ message: 'Couldnt find'});
+}
 });
 
 router.get('/login', (req, res) => {
