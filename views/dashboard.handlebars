@@ -1,0 +1,20 @@
+{{#contentFor "body"}}
+  <section id="dashboard">
+    <h2>Dashboard</h2>
+    {{#if posts.length}}
+      <ul class="post-list">
+        {{#each posts}}
+          <li class="post-item">
+            <h3>{{title}}</h3>
+            <p class="post-date">Posted on {{formatDate createdAt}}</p>
+            <p>{{{content}}}</p>
+            <a href="/post/edit/{{id}}" class="edit-button">Edit</a>
+            <a href="/post/delete/{{id}}" class="delete-button">Delete</a>
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <p>You haven't created any blog posts yet. <a href="/post/create">Create one now.</a></p>
+    {{/if}}
+  </section>
+{{/contentFor}}

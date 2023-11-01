@@ -1,5 +1,4 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 const { User } = require('../../models');
 
 router.get('/', async (req, res) => {
@@ -39,7 +38,7 @@ router.post('/login', async (req, res) => {
       return res.status(400).json("Incorrect username or password. Please try again.");
     }
 
-    const validPassword = await user.checkPassword(password);
+    const validPassword = user.checkPassword(password);
 
     if (!validPassword) {
       return res.status(400).json("Incorrect email or password. Please try again.");
