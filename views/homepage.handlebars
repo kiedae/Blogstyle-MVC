@@ -1,0 +1,19 @@
+<main>
+  <section id="homepage">
+    <h2>Welcome to Tech Blog</h2>
+    <h3>Recent Posts</h3>
+    {{#if posts.length}}
+      <ul class="post-list">
+        {{#each posts}}
+          <li class="post-item">
+            <h3><a href="/post/{{id}}">{{title}}</a></h3>
+            <p class="post-date">Posted on {{formatDate createdAt}}</p>
+            <p>{{{content}}}</p>
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <p>No blog posts have been created yet. Check back later for updates.</p>
+    {{/if}}
+  </section>
+</main>

@@ -1,13 +1,18 @@
-{{> layouts/main}}
-
-{{#contentFor "body"}}
+<main>
   <section id="post">
     {{#if post}}
       <h2>{{post.title}}</h2>
       <p class="post-date">Posted on {{formatDate post.createdAt}} by {{post.User.username}}</p>
       <div class="post-content">{{{post.content}}}</div>
       <h3>Comments</h3>
-      {{#if comments.length}}
+      {{#if logged_in}}
+        <!-- Section for posting a comment when logged in -->
+        <form class="comment-form" id="postCommentForm">
+          <label for="commentText">Your Comment:</label>
+          <textarea id="commentText" name="commentText" rows="4"></textarea>
+          <button type="submit" class="btn btn-primary">Post Comment</button>
+        </form>
+        <h3>All Comments</h3>
         <ul class="comment-list">
           {{#each comments}}
             <li class="comment-item">
@@ -17,10 +22,22 @@
           {{/each}}
         </ul>
       {{else}}
-        <p>No comments yet. Be the first to comment!</p>
+        <!-- Section for viewing all comments without posting -->
+        {{#if comments.length}}
+          <ul class="comment-list">
+            {{#each comments}}
+              <li class="comment-item">
+                <p><strong>{{User.username}}:</strong> {{commentText}}</p>
+                <p class="comment-date">Commented on {{formatDate createdAt}}</p>
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <p>No comments yet. Be the first to comment!</p>
+        {{/if}}
       {{/if}}
     {{else}}
       <p>Blog post not found.</p>
     {{/if}}
   </section>
-{{/contentFor}}
+ </main>
